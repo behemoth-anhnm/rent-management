@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_231_124_042_636) do
+ActiveRecord::Schema[7.0].define(version: 20_231_124_072_644) do
   create_table 'expenses', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
     t.integer 'electricity_fee'
     t.integer 'water_fee'
@@ -22,6 +22,14 @@ ActiveRecord::Schema[7.0].define(version: 20_231_124_042_636) do
     t.date 'due_date'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.bigint 'penalty_id'
+    t.bigint 'room_id'
+    t.bigint 'status_id'
+    t.bigint 'user_id'
+    t.index ['penalty_id'], name: 'index_expenses_on_penalty_id'
+    t.index ['room_id'], name: 'index_expenses_on_room_id'
+    t.index ['status_id'], name: 'index_expenses_on_status_id'
+    t.index ['user_id'], name: 'index_expenses_on_user_id'
   end
 
   create_table 'penalties', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
@@ -35,10 +43,11 @@ ActiveRecord::Schema[7.0].define(version: 20_231_124_042_636) do
   create_table 'rooms', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
     t.string 'room_name'
     t.integer 'price'
-    t.integer 'capacity'
     t.text 'description'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.bigint 'user_id'
+    t.index ['user_id'], name: 'index_rooms_on_user_id'
   end
 
   create_table 'statuses', charset: 'utf8mb4', collation: 'utf8mb4_0900_ai_ci', force: :cascade do |t|
@@ -52,4 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 20_231_124_042_636) do
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
+
+  add_foreign_key 'expenses', 'penalties'
+  add_foreign_key 'expenses', 'rooms'
+  add_foreign_key 'expenses', 'statuses'
+  add_foreign_key 'expenses', 'users'
+  add_foreign_key 'rooms', 'users'
 end

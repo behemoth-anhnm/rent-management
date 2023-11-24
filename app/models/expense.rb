@@ -6,4 +6,7 @@ class Expense < ApplicationRecord
   validates :due_date, presence: true
 
   belongs_to :user
+  belongs_to :room
+  belongs_to :status
+  belongs_to :penalty, optional: true
 end

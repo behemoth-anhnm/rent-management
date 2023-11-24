@@ -3,5 +3,5 @@
 class Status < ApplicationRecord
   validates :status_name, presence: true
 
-  has_and_belongs_to_many :rooms
+  has_many :expenses
 end
