@@ -5,7 +5,7 @@ class Room < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :description, presence: { if: -> { description.present? } }
 
-  belongs_to :user
+  belongs_to :tenant, class_name: 'User'
   has_many :expenses
   has_and_belongs_to_many :penalties
 end
