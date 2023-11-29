@@ -1,0 +1,84 @@
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  td a {
+    padding: 5px 10px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 3px;
+  }
+
+  td a:hover {
+    background-color: #0056b3;
+  }
+
+  .new-user-link {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: royalblue;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+
+  .new-user-link:hover {
+    background-color: darkblue;
+  }
+
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+</style>
+
+<div class="header">
+  <h1>Users</h1>
+  <%= link_to 'New User', new_user_path, class: 'new-user-link' %>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.age %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
